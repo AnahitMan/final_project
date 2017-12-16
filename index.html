@@ -1,4 +1,9 @@
 <html>
+<style>
+  * {
+    text-align: center;
+  }
+</style>
 <canvas id="lab" width="1000" height="600"> </canvas>
 <script>
     const canvas = document.getElementById('lab');
@@ -9,7 +14,7 @@
     char.src = "https://i.stack.imgur.com/rsH6n.png";
     let countMin = 0;
     let gameOver = false;
-    let square = { //player 
+    let square = { //player
         x: canvas.width / 2 - 20,
         y: canvas.height - 40,
         width: 40,
@@ -63,7 +68,7 @@
             deltax: 10
         }
     }
-    const draw = function() { 
+    const draw = function() {
         //lab.clearRect(0, 0, canvas.width, canvas.height)
         lab.drawImage(back, 0, 0, canvas.width, canvas.height);
         lab.fillStyle = "orange";
@@ -83,7 +88,6 @@
             lab.fillRect(bullets[i].x, bullets[i].y, 2, 2);
         }
     }
-
     const changes = function() {
         for (let i = 0; i < bullets.length; i++) {
             bullets[i].y -= 3;
@@ -93,7 +97,6 @@
                 bullets.splice(i, 1);
             }
         }
-
         for (let i = 0; i < stars.length; i++) {
             stars[i].y += 2;
         }
@@ -102,14 +105,12 @@
                 stars.splice(i, 1);
             }
         }
-
         for (let i = rects.length - 1; i >= 0; i--) {
             rects[i].y++;
             if (rects[i].y > canvas.height || rects[i].opacity < 0) {
                 rects.splice(i, 1);
             }
         }
-
         for (let i = 0; i < rects.length; i++) {
             for (let j = bullets.length - 1; j >= 0; j--) {
                 if ((rects[i].color === "red" || rects[i].color === "blue") && RectsIntersection(rects[i].x, rects[i].y, rects[i].width, rects[i].height, bullets[j].x, bullets[j].y, bullets[j].width, bullets[j].height)) {
@@ -118,7 +119,6 @@
                 }
             }
         }
-
         countMin++;
         if (countMin % 2 === 0) {
             addStars(stars);
@@ -137,7 +137,7 @@
                 height: 1
             })
         }
-        if (keysObj[upKey] && square.y > 0) {
+        if (keysObj[upKey] && square.y > 0 && rects[0].y > 300) {
             square.y -= square.deltay;
         }
         if (keysObj[downKey] && square.y + 40 < canvas.height) {
@@ -146,7 +146,6 @@
         if (keysObj[leftKey] && square.x > 0) {
             square.x -= square.deltax
         }
-
         if (keysObj[rightKey] && square.x + 40 < canvas.width) {
             square.x += square.deltax;
         }
@@ -158,7 +157,7 @@
         }
         if(square.y === 0) {
             gameOver = true;
-            alert("You win :'(");
+            alert("You win 😢");
         }
     }
     document.addEventListener('keydown', function(event) {
